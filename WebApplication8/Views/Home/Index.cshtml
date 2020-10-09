@@ -1,0 +1,98 @@
+﻿@model  WebApplication8.Models.ConsultaViewModel
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<!--Contenedor de menu-->
+<div style="background: #002954; height:5rem; min-width:300px;"></div>
+
+<div class="container">
+    <!--Formulario-->
+    <div class="mt-4 mb-3 d-flex justify-content-center">
+        <form class="form" action="Index" method="post">
+            <div class="mb-3 text-center form-group row">
+
+                <div class="mr-4">
+                    <span class="font-weight-bold pr-2" style="font-size:0.8rem;">FECHA DESDE:</span>
+                    @Html.EditorFor(x => x.fechaDesde, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="mr-4">
+                    <span class="font-weight-bold pl-3 pr-2" style="font-size:0.8rem;">FECHA HASTA:</span>
+                    @Html.EditorFor(x => x.fechaHasta, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="mr-4">
+                    <span class="font-weight-bold pl-3 pr-2" style="font-size:0.8rem;">ACCIÓN:</span>
+                    <select name="Accion" id="Accion" class="form-control">
+                        <option selected disabled>Seleccionar...</option>
+                        <option value="1">Consulta</option>
+                        <option value="2">Reporte</option>
+                    </select>
+                </div>
+
+                <input class="btn text-white btn-sm ml-4 pl-4 pr-4 rounded-0" style="background:#002954;" type="submit" value="Buscar" />
+            </div>
+        </form>
+    </div>
+
+    <!--Muestra de rango de fecha-->
+    @if (Model.Accion != 0)
+    {
+        <div class="text-center">
+            Resultados desde <b>@Model.fechaDesde.ToLongDateString()</b> hasta <b>@Model.fechaHasta.ToLongDateString()</b>
+        </div>
+
+    }
+
+    <!--Resultado de consulta-->
+    <div class="card-deck mt-4 "
+         style=" margin-top: 10px;
+                margin-left: auto;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                grid-gap: .5rem;">
+        @foreach (var item in Model.items)
+        {
+            var img = "/Images/" + item.Prestadora + ".png";
+
+            <div class="card text-center shadow-sm shadow mb-3 border-0">
+                <div class="card-header border-0">
+                    <h5>@item.Prestadora</h5>
+                </div>
+                <div class="card-body">
+                    <img class="mb-4" style="max-width:8em;" src=@img />
+                    <div class="p-1 text-white" style="background: #a21421;">
+                        <h2 class="card-title">@item.SeriesNegadas</h2>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<!--@section Scripts{
+
+    <script>
+
+        $.ajax({
+            method: "GET",
+            url: "https://randomuser.me/api?results=1"
+        }).done(function (data) {
+            console.log(data.results);
+        });
+
+
+
+        $.ajax({
+            method: "GET",
+            url: "http://apisitelocal.indotel.net.do/SeriesNegadas/ConsultarSeriesReportadasPrestadora?fechaDesde=2020-07-01&fechaHasta=2020-07-02&accion=1"
+        }).done(function (data) {
+            console.log(data);
+        });
+
+    </script>
+    }
+    -->

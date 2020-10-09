@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Series Negadas</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="bg-white text-dark pb-4 text-center">
+        <div class="container" >
+        <img src="~/Images/logoIndotel.png" style="width:18rem;" />
+        </div>
+    </div>
+
+    <div class="pb-5">
+        @RenderBody()
+    </div>
+
+    <footer class="bg-dark text-white-50 p-2 pt-3 pb-5">
+        <div class="text-center p-3">
+            <img class="mr-3" src="~/Images/escudo rd.png" />
+            <img class="ml-3" src="~/Images/logo indotel blanco.png" />
+        </div>
+        <div class="text-center">
+            INSTITUTO DOMINICANO DE LAS TELECOMUNICACIONES <br />
+            Dirección: Av. Abraham Lincoln No. 962, Santo Domingo, R. D. <br />
+            Código Postal: 10148 <br />
+            Teléfono: (829) 732-5555 <br />
+            Comunicaciones, solicitudes e informaciones generales: correspondencia@indotel.gob.do <br />
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
