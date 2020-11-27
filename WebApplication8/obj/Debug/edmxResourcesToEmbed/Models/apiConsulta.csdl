@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ApiConsultaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Prestadora">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Reportes" Relationship="Self.FK_Reportes_Prestadoras" FromRole="Prestadoras" ToRole="Reportes" />
+  </EntityType>
+  <EntityType Name="Reporte">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdPrestadora" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Prestadora" Relationship="Self.FK_Reportes_Prestadoras" FromRole="Reportes" ToRole="Prestadoras" />
+  </EntityType>
+  <Association Name="FK_Reportes_Prestadoras">
+    <End Role="Prestadoras" Type="Self.Prestadora" Multiplicity="1" />
+    <End Role="Reportes" Type="Self.Reporte" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestadoras">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reportes">
+        <PropertyRef Name="IdPrestadora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ApiConsultaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Prestadoras" EntityType="Self.Prestadora" />
+    <EntitySet Name="Reportes" EntityType="Self.Reporte" />
+    <AssociationSet Name="FK_Reportes_Prestadoras" Association="Self.FK_Reportes_Prestadoras">
+      <End Role="Prestadoras" EntitySet="Prestadoras" />
+      <End Role="Reportes" EntitySet="Reportes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

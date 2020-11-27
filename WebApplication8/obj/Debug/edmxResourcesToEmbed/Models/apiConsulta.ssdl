@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ApiConsultaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Prestadoras">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reportes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdPrestadora" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Reportes_Prestadoras">
+    <End Role="Prestadoras" Type="Self.Prestadoras" Multiplicity="1" />
+    <End Role="Reportes" Type="Self.Reportes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestadoras">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reportes">
+        <PropertyRef Name="IdPrestadora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ApiConsultaModelStoreContainer">
+    <EntitySet Name="Prestadoras" EntityType="Self.Prestadoras" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reportes" EntityType="Self.Reportes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Reportes_Prestadoras" Association="Self.FK_Reportes_Prestadoras">
+      <End Role="Prestadoras" EntitySet="Prestadoras" />
+      <End Role="Reportes" EntitySet="Reportes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ApiConsultaModelStoreContainer" CdmEntityContainer="ApiConsultaEntities">
+    <EntitySetMapping Name="Prestadoras">
+      <EntityTypeMapping TypeName="ApiConsultaModel.Prestadora">
+        <MappingFragment StoreEntitySet="Prestadoras">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reportes">
+      <EntityTypeMapping TypeName="ApiConsultaModel.Reporte">
+        <MappingFragment StoreEntitySet="Reportes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdPrestadora" ColumnName="IdPrestadora" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
