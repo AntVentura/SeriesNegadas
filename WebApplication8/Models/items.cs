@@ -7,7 +7,8 @@ namespace WebApplication8.Models
 {
     public class items
     {
+        public DateTime Fecha { get; set; }
         public string Prestadora { get; set; }
-        public int SeriesNegadas { get; set; }
+        public int SeriesReportadas { get; set; }
     }
 }

@@ -40,8 +40,11 @@
     <!--Muestra de rango de fecha-->
     @if (Model.Accion != 0)
     {
+        var tipoAccion = "consultas y reportes";
+        tipoAccion = Model.Accion == 1 ? "consultas" : Model.Accion == 2 ? "reportes" : tipoAccion;
+   
         <div class="text-center">
-            Resultados desde <b>@Model.fechaDesde.ToLongDateString()</b> hasta <b>@Model.fechaHasta.ToLongDateString()</b>
+            Resultados sobre <b>@tipoAccion</b> desde <br /> <b>@Model.fechaDesde.ToLongDateString()</b> hasta <b>@Model.fechaHasta.ToLongDateString()</b>
         </div>
 
     }
@@ -63,8 +66,9 @@
                 </div>
                 <div class="card-body">
                     <img class="mb-4" style="max-width:8em;" src=@img />
+                    <p> @item.Fecha.ToString("MMMM yyyy")</p>
                     <div class="p-1 text-white" style="background: #a21421;">
-                        <h2 class="card-title">@item.SeriesNegadas</h2>
+                        <h2 class="card-title">@item.SeriesReportadas</h2>
                     </div>
                 </div>
             </div>

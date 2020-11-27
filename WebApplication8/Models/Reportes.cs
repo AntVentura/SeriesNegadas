@@ -1,13 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using WebApplication8.Models;
 
 namespace WebApplication8.Models
 {
     public class Reportes
     {
+        public async Task<ActionResult> GetReporte( ConsultaViewModel consulta )
+        {
+            string _URL = $"apisitelocal.indotel.net.do/SeriesNegadas/ConsultarSeriesReportadasPrestadora?fechaDesde={consulta.fechaDesde}1&fechaHasta={consulta.fechaDesde}&accion={consulta.Accion}";
+            var httpCiente = new HttpClient();
+
+            var json = await httpCiente.GetStringAsync(_URL);
+
+            return null;
+        }
+
+
+
+
+
         ApiConsultaEntities db = new ApiConsultaEntities();
 
        public ConsultaViewModel GET()
