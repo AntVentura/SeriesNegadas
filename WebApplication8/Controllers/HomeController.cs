@@ -31,8 +31,8 @@ namespace WebApplication8.Controllers
             ConsultaViewModel lista = new ConsultaViewModel();
             lista.items = JsonConvert.DeserializeObject<List<items>>(json);
             lista.Accion = consultasYreportes; 
-            lista.fechaDesde = Convert.ToDateTime(fechaDesde, new CultureInfo("es-ES"));
-            lista.fechaHasta = Convert.ToDateTime(fechaHasta, new CultureInfo("es-ES"));
+            lista.fechaDesde = Convert.ToDateTime(fechaDesde);
+            lista.fechaHasta = Convert.ToDateTime(fechaHasta);
            
             return View(lista);
         }
@@ -40,21 +40,25 @@ namespace WebApplication8.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(ConsultaViewModel consulta)
         {
-            int consultasYreportes = 3;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("es-ES");
+            try {
 
-            string _URL = $"http://apisitelocal.indotel.net.do/SeriesNegadas/ConsultarSeriesReportadasPrestadora?fechaDesde={consulta.fechaDesde}&fechaHasta={consulta.fechaHasta}&accion={consulta.Accion}";
-            var httpCiente = new HttpClient();
-            var json = await httpCiente.GetStringAsync(_URL);
+                int consultasYreportes = 3;
 
+                string _URL = $"http://apisitelocal.indotel.net.do/SeriesNegadas/ConsultarSeriesReportadasPrestadora?fechaDesde={consulta.fechaDesde.ToString("yyyy-MM-dd")}&fechaHasta={consulta.fechaHasta.ToString("yyyy-MM-dd")}&accion={consulta.Accion}";
+                var httpCliente = new HttpClient();
+                var json = await httpCliente.GetStringAsync(_URL);
 
-            ConsultaViewModel lista = new ConsultaViewModel();
-            lista.items = JsonConvert.DeserializeObject<List<items>>(json);
-            lista.Accion = consulta.Accion != 0 ? consulta.Accion : consultasYreportes;
-            lista.fechaDesde = consulta.fechaDesde;
-            lista.fechaHasta = consulta.fechaHasta;
+                ConsultaViewModel lista = new ConsultaViewModel();
+                lista.items = JsonConvert.DeserializeObject<List<items>>(json);
+                lista.Accion = consulta.Accion != 0 ? consulta.Accion : consultasYreportes;
+                lista.fechaDesde = consulta.fechaDesde;
+                lista.fechaHasta = consulta.fechaHasta;
      
             return View(lista);
+
+            } catch { return RedirectToAction("/Index"); }
+            
+
         }
 
     }
